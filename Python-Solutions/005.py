@@ -5,9 +5,11 @@ import time
 
 def get_multiples(x, max):
 	counter = []
-	for i in range(int(max/2) + 1):
+	primes = [2, 3, 5, 7, 11, 13, 17, 19]
+	for i in range(len(primes)):
 		counter.append(0)
-	for i in range(2, int(max/2) + 1):
+	
+	for i in primes:
 		number = x
 		condition = True
 		while condition:
@@ -32,8 +34,9 @@ def find_max_number():
 		max_numbers.append(maximum)
 	return max_numbers
 
+primes = [2, 3, 5, 7, 11, 13, 17, 19]
 numbers = find_max_number()
 x = 1
-for i in range(len(numbers)):
+for i in primes:
 	x = x*(i**numbers[i])
 print(x)
