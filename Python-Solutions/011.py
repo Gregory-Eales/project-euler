@@ -2,7 +2,7 @@ import numpy as np
 import time
 
 
-[[8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8],
+grid = [[8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8],
 [49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 4, 56, 62, 0],
 [81, 49, 31, 73, 55, 79, 14, 29, 93, 71, 40, 67, 53, 88, 30, 3, 49, 13, 36, 65],
 [52, 70, 95, 23, 4, 60, 11, 42, 69, 24, 68, 56, 1, 32, 56, 71, 37, 2, 36, 91],
@@ -37,7 +37,7 @@ def get_diagonal_left(x, y, grid):
 	# i, j = starting coordinates
 	numbers = []
 	for i in range(4):
-		numbers.append(grid[y-i][x-i])
+		numbers.append(grid[y+i][x-i])
 
 	return numbers
 
@@ -61,7 +61,7 @@ def get_vertical(x, y, grid):
 
 
 # multiplies all of the numbers in a list together
-def multiply(numbers):
+def multiply_list(numbers):
 	product = 1
 	for number in numbers:
 		product = product*number
@@ -69,4 +69,43 @@ def multiply(numbers):
 	return product
 
 def find_largest_multiple(grid):
-	pass
+	largest = 0
+	largest_coordinates = []
+
+	for j in range(len(grid)):
+		for i in range(len(grid[0]) - 4 + 1):
+			horizontal = get_horizontal(i, j, grid)
+			horizontal = multiply_list(horizontal)
+			if horizontal > largest:
+				largest = horizontal
+				largest_coordinates = [i, j, "horizontal"]
+
+	for i in range(len(grid[0])):
+		for j in range(len(grid) - 4 + 1):
+			vertical = get_vertical(i, j, grid)
+			vertical = multiply_list(vertical)
+			if vertical > largest:
+				largest = vertical
+				largest_coordinates = [i, j, "vertical"]
+
+	for i in range(len(grid[0]) - 4 + 1):
+		for j in range(len(grid) - 4 + 1):
+			diagonal = get_diagonal_right(i, j, grid)
+			diagonal = multiply_list(diagonal)
+			if diagonal > largest:
+				largest = diagonal
+				largest_coordinates = [i, j, "diagonal right"]
+
+	for i in range(2, len(grid[0])):
+		for j in range(len(grid) - 4 + 1):
+			diagonal = get_diagonal_left(i, j, grid)
+			diagonal = multiply_list(diagonal)
+			if diagonal > largest:
+				largest = diagonal
+				largest_coordinates = [i, j, "diagonal left"]
+	
+	return largest, largest_coordinates
+
+largest, largest_coordinates = find_largest_multiple(grid)
+
+print(largest, largest_coordinates)
