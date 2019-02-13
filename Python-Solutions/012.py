@@ -1,27 +1,38 @@
-import numpy as np
 import time
 
-# counts the divisors of number x
-def count_divisors(x):
-	num_divisors = 0
-	for i in range(1, int(x/2 + 1)):
-		if x % i == 0:
-			num_divisors += 1
-	return num_divisors
+# number of divisors
+def number_divisors(n):
+    if n % 2 == 0: n = n/2
+    divisors = 1
+    count = 0
+    while n % 2 == 0:
+        count += 1
+        n = n/2
+    divisors = divisors * (count + 1)
+    p = 3
+    while n != 1:
+        count = 0
+        while n % p == 0:
+            count += 1
+            n = n/p
+        divisors = divisors * (count + 1)
+        p += 2
+    return divisors
 
-def divisor_traingle_number(n):
-	triangle_num = n*(n+1) / 2
-
-	return count_divisors(triangle_num)
-
-
-
-	
-
-print(divisor_traingle_number(100000))
-
-
-
-
+# find the triangle number with factors >= factor limit
+def find_triangle_factor(factor_limit):
+    n = 1
+    lnum, rnum = number_divisors(n), number_divisors(n+1)
+    while lnum * rnum < 500:
+        n += 1
+        lnum, rnum = rnum, number_divisors(n+1)
+    return n
+ 
+start = time.time()
+index = find_triangle_factor(500)
+triangle = (index * (index + 1)) / 2
+elapsed = (time.time() - start)
+ 
+print("result {} returned in {} seconds".format(triangle,elapsed))
 
 
