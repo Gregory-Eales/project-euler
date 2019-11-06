@@ -22,5 +22,5 @@ def get_longest_repeat(n):
                 longest = i
                 length = len(d)
     return longest, length
-    
+
 print(get_longest_repeat(100))
