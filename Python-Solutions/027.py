@@ -1,3 +1,4 @@
+from tqdm import tqdm
 
 def get_primes(n, primes=[2]):
 
@@ -24,13 +25,14 @@ def polynomial(a, b, n):
 
 def highest_consecutive_primes(a_max, b_max):
 
-    primes = get_primes(10000)
-
+    hist_coefs = []
+    primes = get_primes(10)
+    print("got primes")
     max_consecutive = 0
     max_coeff = [0, 0]
 
-    for a in range(a_max):
-        for b in range(b_max):
+    for a in tqdm(range(-a_max-1, a_max+1)):
+        for b in range(-b_max-1, b_max+1):
             n = 0
             consecutive = True
             while consecutive == True:
@@ -38,11 +40,17 @@ def highest_consecutive_primes(a_max, b_max):
                 if p in primes:
                     n += 1
                 else:
+                    while p > primes[-1]:
+                        primes = get_primes(len(primes)+10, primes)
                     consecutive = False
             if n > max_consecutive:
                 max_consecutive = n
                 max_coeff = [a, b]
+                hist_coefs.append([a, b])
 
+    print(hist_coefs)
     return max_consecutive, max_coeff
 
-print(highest_consecutive_primes(10, 43))
+print("yes")
+print(-51*691)
+print(highest_consecutive_primes(1000, 1000))
