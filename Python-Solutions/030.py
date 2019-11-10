@@ -10,10 +10,10 @@ def get_power_digits(n):
 
 def get_pow_nums(n):
     nums = []
-    for i in tqdm(range(1, n)):
+    for i in range(2, n):
         if i == get_power_digits(i):
             nums.append(i)
-
+            print(len(nums))
     return np.sum(nums)
 
 print(get_pow_nums(1000000))
