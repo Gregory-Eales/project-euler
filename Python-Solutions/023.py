@@ -32,48 +32,47 @@ def is_abundant_number(n):
 
     divisors = []
     
-    for i in range(1, int(n//2) + 1):
+    for i in range(1, n):
         if n%i == 0:
             divisors.append(i)
-
+    
     if np.sum(divisors) > n:
         return n
 
     return None
 
 
-def get_non_perfect_numbers(m):
-    non_perfect = []
-    for i in tqdm(range(m)):
-        num = is_perfect_number(i)
-        if num != None:
-            non_perfect.append(num)
-    
-    print(non_perfect[0:10])
-
-
 def get_abundant_numbers(m):
+    
     abundant = []
     for i in tqdm(range(m)):
         num = is_abundant_number(i)
-        if num != None:
+        if num != None and num not in abundant:
             abundant.append(num)
 
     total_sum = m*(m+1)/2
 
-    abundant_sum = np.sum(abundant)
-    sum_of_abundants = []
+    print(len(abundant))
+    
+    sum_of_abundants = [False] * (m+1)
+
+    
     for i in tqdm(range(len(abundant))):
         for j in range(i, len(abundant)):
             num = abundant[i]+abundant[j]
-            if num < m and num not in sum_of_abundants:
-                sum_of_abundants.append(num)
+            if num <= m:
+                sum_of_abundants[num] = True
+    
+    num = 0
+    for i in range(len(sum_of_abundants)):
+        if sum_of_abundants[i]:
+            num += i
+
     
     print(np.sum(sum_of_abundants))
-    print(abundant_sum)
     print(total_sum)
     print("##################")
-    print(total_sum - np.sum(sum_of_abundants))
+    print(total_sum - num)
 
 
 if __name__ == "__main__":
