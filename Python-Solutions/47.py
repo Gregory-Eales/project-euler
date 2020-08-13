@@ -32,6 +32,13 @@ def factor(n, primes):
 	
 	for p in primes:
 
+		if p > int(math.sqrt(n)+1):
+
+			if n in primes:
+				factors.append(n)
+
+			break
+
 		if n%p == 0:
 	
 			if p not in factors:
