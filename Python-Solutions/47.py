@@ -26,13 +26,58 @@ def get_primes(n):
 	return primes
 
 
-def find_the_four():
+def factor(n, primes):
+	
+	factors = []
+	
+	for p in primes:
 
-	pass
+		if n%p == 0:
+	
+			if p not in factors:
+				factors.append(p)
+
+			n = n / p
+	
+	if n not in factors and n != 1:
+		factors.append(int(n))
+	
+	return factors
+
+def find_the_four(n):
+
+	primes = get_primes(n)
+
+	four_pairs = []
+
+	fours = []
+
+	consecutive = False
+
+	for i in tqdm(range(2, n), "Finding the Four"):
+	
+		if len(factor(i, primes)) == 4:
+			
+			if not consecutive:
+				consecutive = True
+
+			fours.append(i)
+
+			if len(fours) >= 4:
+				four_pairs.append(fours)
+				fours = []
+		
+		elif consecutive:
+			fours = []
+			consecutive = False
+		
+	return four_pairs
 
 def main():
-	print(get_primes(100))
-
+	print(find_the_four(150000))
+	
+	#primes = get_primes(100)
+	#print(factor(100, primes))
 
 if __name__ == "__main__":
 	main()
