@@ -52,7 +52,7 @@ def list_to_num(l):
 
 	for i in range(4):
 
-		n += int(copy(l[i]) * 10**i)
+		n += int(copy(l[i]) * 10**(3-i))
 	
 	return n
 
@@ -115,7 +115,7 @@ def get_prime_permutes():
 
 				#if p == [2, 9, 6, 9] and len(pair) > 1: print(pair)
 
-				if list_to_num(p) == 2969 and pair>1: print(pair)
+				if list_to_num(p) == 2969 and len(pair)>1: print(pair)
 
 			
 				if i == j:
@@ -149,3 +149,7 @@ def main():
 if __name__ == "__main__":
 
 	main()
+
+	print(num_to_list(5312))
+
+	print(list_to_num([5, 3, 1, 2]))
