@@ -3,6 +3,24 @@ import math
 from tqdm import tqdm
 
 
+def prime_test(n):
+
+	start = 2
+	end = n
+
+	primes = []
+  
+	for val in tqdm(range(start, end + 1)): 
+		if val > 1:
+			for n in range(2, val//2 + 2):
+				if (val % n) == 0:
+					break
+				else:
+					if n == val//2 + 1:
+						primes.append(val)
+	
+	return primes
+
 def get_primes(n):
 
 	primes = [2]
@@ -13,7 +31,7 @@ def get_primes(n):
 
 		for p in primes:
 
-			if p > i:
+			if p > int(math.sqrt(i))+5:
 				break
 
 			if i % p == 0:
@@ -58,13 +76,38 @@ def is_prime(d, n, primes):
 
 	for p in primes:
 
+		if p > num:
+			return False
+
+		if p == num:
+			return True
 	
-
-
 def main():
 
-	get_primes(100,000,000)
+	end = 100000
 
+	primes = get_primes(end)
+
+	num = 0
+	
+	for i in tqdm(range(2, end), "Getting Gen Ints"):
+
+		factors = factor(i, primes)
+
+		prime = True
+		
+		for f in factors:
+
+			if not is_prime(f, i, primes):
+
+				prime = False
+
+				break
+		
+		if prime:
+			num += i
+
+	print(num)
 
 if __name__ == "__main__":
 
