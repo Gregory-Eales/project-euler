@@ -21,4 +21,4 @@ def get_primes(n, primes=[2]):
 
     return primes
 
-print(get_primes(50000)[-1])
+
