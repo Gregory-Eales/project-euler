@@ -9,11 +9,12 @@ The prime 41, can be written as the sum of six consecutive primes:
 
 					41 = 2 + 3 + 5 + 7 + 11 + 13
 
-This is the longest sum of consecutive primes that adds to a prime below one-hundred.
-
-The longest sum of consecutive primes below one-thousand that adds to a prime, contains 21 terms, and is equal to 953.
-
-Which prime, below one-million, can be written as the sum of the most consecutive primes?
+This is the longest sum of consecutive primes that
+adds to a prime below one-hundred.The longest sum of
+consecutive primes below one-thousand that adds to a 
+prime, contains 21 terms, and is equal to 953. Which
+prime, below one-million, can be written as the sum of
+ the most consecutive primes?
 
 """
 
@@ -55,11 +56,14 @@ def sum_cons_primes(primes, i, r):
 def find_max_consec_sum(primes):
 
 	m = 0
-	r = list(reversed(range(1000)))
-	primes = list(reversed(primes))
+	r = list(reversed(range(547)))
 	for j in tqdm(range(len(r)), 'finding sum'):
 		for i in range(len(primes)-r[j]):
 			s = sum_cons_primes(primes, i, r[j])
+
+			if s > 1000000:
+				break
+
 			if binary_search(primes, s):
 				return s
 
@@ -69,6 +73,15 @@ def find_max_consec_sum(primes):
 def main():
 	
 	primes = get_primes(1000000-1)
+	print(len(primes))
+
+	'''
+	for i in range(10000):
+		if sum(primes[0:i])>1000000:
+			print(i)
+			break
+	'''
+	
 	print(find_max_consec_sum(primes))
 	
 	
