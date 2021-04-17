@@ -1,4 +1,5 @@
 import numpy as np
+from tqdm import tqdm
 
 def get_primes(n, primes=[2]):
 

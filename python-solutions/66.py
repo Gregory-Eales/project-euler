@@ -16,11 +16,11 @@ def binary_search(a, x):
 
 
 def get_y(d, x):
-	return int(((x**2 - 1)/d))
+	return ((x**2 - 1)/d)**0.5
 
 
 def get_squares(n):
-	return list([i**2 for i in range(1, 100000)])
+	return list([i**2 for i in range(1, 10000)])
 
 
 def find_diaph():
@@ -29,34 +29,32 @@ def find_diaph():
 	max_x = 10000
 	print(get_y(max_d, max_x))
 
-	squares = get_squares(int(get_y(max_d, max_x)))
+	#squares = get_squares(int(get_y(max_d, max_x)))
 
-	pairs = list([-1e3 for i in range(max_d)])
+	pairs = []
 
-	for d in tqdm(range(1, max_d)):
+	for d in tqdm(range(1, max_d+1)):
 
-		for x in range(2, max_x):
+		x = 2
+		while True:
 
 			if (d**0.5 == int(d**0.5)):
 				break
 
-			if binary_search(squares, get_y(d, x)):
-				
-				if x < abs(pairs[d]):
-					pairs[d] = x
+			if int(get_y(d, x)) == get_y(d, x):
+				pairs.append([d, x, get_y(d, x)])
+				break
 
+			if x > 1e7:
+				break
+
+			x += 1
 	
-	m_d = 0					
-	m_x = 0
-
-	for i in tqdm(range(len(pairs))):
-
-		if m_x < pairs[i]:
-			m_x = pairs[i]
-			m_d = d
+	
+	for p in pairs:
+		print(p)
 
 
-	print(m_d, m_x)
 
 
 
